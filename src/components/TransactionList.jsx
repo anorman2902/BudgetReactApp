@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import { GlobalContext } from '../context/GlobalContext';
 
 function TransactionList() {
-  const { transactions } = useContext(GlobalContext);
+  const { transactions, deleteTransaction } = useContext(GlobalContext);
 
   return (
     <div className="mb-6">
@@ -18,10 +18,21 @@ function TransactionList() {
           return (
             <li
               key={transaction.id}
-              className={`flex justify-between p-2 rounded-md shadow-sm border-r-4 ${color}`}
+              className={`flex justify-between items-center p-2 rounded-md shadow-sm border-r-4 ${color}`}
             >
-              <span>{transaction.text}</span>
-              <span>{sign}${Math.abs(transaction.amount)}</span>
+              <div>
+                <span>{transaction.text}</span>
+                <span className="ml-2">
+                  {sign}${Math.abs(transaction.amount)}
+                </span>
+              </div>
+              <button
+                onClick={() => deleteTransaction(transaction.id)}
+                className="text-red-500 hover:text-red-700 font-bold ml-4"
+                aria-label="Delete transaction"
+              >
+                ✖
+              </button>
             </li>
           );
         })}

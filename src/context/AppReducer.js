@@ -5,6 +5,13 @@ export default function AppReducer(state, action) {
           ...state,
           transactions: [action.payload, ...state.transactions],
         };
+      case 'DELETE_TRANSACTION':
+        return {
+          ...state,
+          transactions: state.transactions.filter(
+            (t) => t.id !== action.payload
+          ),
+        };
       default:
         return state;
     }
