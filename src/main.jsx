@@ -1,9 +1,9 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
-import './index.css';
+import './index.css'; // Tailwind directives live here
 import App from './App.jsx';
 
-import { GlobalProvider } from './context/GlobalContext';
+import { GlobalProvider } from './context/GlobalState.jsx';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>

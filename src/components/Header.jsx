@@ -1,10 +1,9 @@
-function Header() {
-    return (
-      <h2 className="text-2xl font-bold text-center text-purple-700 mb-6">
-        Expense Tracker
-      </h2>
-    );
-  }
-  
-  export default Header;
-  
+const Header = () => {
+  return (
+    <h2 className="tracking-[1px] m-0">
+      Expense Tracker
+    </h2>
+  );
+};
+
+export default Header;

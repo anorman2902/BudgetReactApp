@@ -1,65 +1,66 @@
 import { useState, useContext } from 'react';
-import { GlobalContext } from '../context/GlobalContext';
+import { GlobalContext } from '../context/GlobalState';
 
-function AddTransaction() {
+const AddTransaction = () => {
   const [text, setText] = useState('');
-  const [amount, setAmount] = useState('');
+  const [amount, setAmount] = useState(0);
+
   const { addTransaction } = useContext(GlobalContext);
 
   const onSubmit = (e) => {
     e.preventDefault();
 
-    if (!text || !amount) return;
-
     const newTransaction = {
-      id: crypto.randomUUID(), // Built-in way to create unique IDs
+      id: Math.floor(Math.random() * 100000000),
       text,
-      amount: +amount, // convert to number
+      amount: +amount,
     };
 
     addTransaction(newTransaction);
-
     setText('');
-    setAmount('');
+    setAmount(0);
   };
 
   return (
-    <div>
-      <h3 className="text-lg font-semibold border-b pb-1 mb-2 text-gray-700">Add New Transaction</h3>
-      <form onSubmit={onSubmit} className="space-y-4">
-        <div>
-          <label className="block text-sm font-medium text-gray-600">Text</label>
+    <>
+      <h3 className="border-b border-[#bbb] pb-[10px] mt-[40px] mx-[0] mb-[10px]">
+        Add new transaction
+      </h3>
+      <form onSubmit={onSubmit}>
+        <div className="my-[10px]">
+          <label htmlFor="text" className="inline-block my-[10px]">
+            Text
+          </label>
           <input
             type="text"
             value={text}
             onChange={(e) => setText(e.target.value)}
-            placeholder="Enter description..."
-            className="w-full border px-3 py-2 rounded-md focus:outline-none focus:ring focus:ring-purple-300"
+            placeholder="Enter text..."
+            className="border border-[#dedede] rounded-[2px] block text-[16px] p-[10px] w-full"
           />
         </div>
-
-        <div>
-          <label className="block text-sm font-medium text-gray-600">
-            Amount <span className="text-xs text-gray-400">(negative = expense, positive = income)</span>
+        <div className="my-[10px]">
+          <label htmlFor="amount" className="inline-block my-[10px]">
+            Amount <br />
+            <small className="text-[80%]">(negative - expense, positive - income)</small>
           </label>
           <input
             type="number"
             value={amount}
             onChange={(e) => setAmount(e.target.value)}
             placeholder="Enter amount..."
-            className="w-full border px-3 py-2 rounded-md focus:outline-none focus:ring focus:ring-purple-300"
+            className="border border-[#dedede] rounded-[2px] block text-[16px] p-[10px] w-full"
           />
         </div>
-
         <button
           type="submit"
-          className="w-full bg-purple-600 hover:bg-purple-700 text-white py-2 rounded-md transition"
+          className="cursor-pointer bg-[#9c88ff] shadow-[0_1px_3px_rgba(0,0,0,0.12),_0_1px_2px_rgba(0,0,0,0.24)] text-white border-0 block text-[16px] mt-[10px] mb-[30px] p-[10px] w-full"
         >
-          Add Transaction
+          Add transaction
         </button>
       </form>
-    </div>
+    </>
   );
-}
+};
 
 export default AddTransaction;
